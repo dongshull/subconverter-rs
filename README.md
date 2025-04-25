@@ -1,3 +1,5 @@
+# 复刻自 subconverter-rs[https://github.com/lonelam/subconverter-rs]
+
 # subconverter-rs
 
 <div align="center">
