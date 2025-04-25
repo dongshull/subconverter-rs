@@ -131,19 +131,19 @@ export default function SavedLinks() {
         <main className="flex min-h-screen flex-col items-center p-8">
             <div className="z-10 max-w-5xl w-full items-center font-mono text-sm">
                 <div className="flex justify-between items-center mb-8">
-                    <h1 className="text-3xl font-bold">My Short URLs</h1>
+                    <h1 className="text-3xl font-bold">我的短链接</h1>
                     <div className="flex gap-2">
                         <button
                             onClick={() => setShowNewLinkForm(!showNewLinkForm)}
                             className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                         >
-                            {showNewLinkForm ? "Cancel" : "Create New Short URL"}
+                            {showNewLinkForm ? "取消" : "新建短链接"}
                         </button>
                         <Link
                             href="/"
                             className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
                         >
-                            Back to Home
+                            返回首页
                         </Link>
                     </div>
                 </div>
@@ -156,10 +156,10 @@ export default function SavedLinks() {
 
                 {showNewLinkForm && (
                     <div className="bg-white/10 p-6 rounded-lg shadow-md mb-6">
-                        <h2 className="text-xl font-bold mb-4">Create New Short URL</h2>
+                        <h2 className="text-xl font-bold mb-4">新建短链接</h2>
                         <form onSubmit={handleCreateSubmit}>
                             <div className="mb-4">
-                                <label className="block mb-2">Target URL*</label>
+                                <label className="block mb-2">目标网址*</label>
                                 <input
                                     type="url"
                                     required
@@ -170,30 +170,30 @@ export default function SavedLinks() {
                                 />
                             </div>
                             <div className="mb-4">
-                                <label className="block mb-2">Custom ID (optional)</label>
+                                <label className="block mb-2">自定义ID（可选）</label>
                                 <input
                                     type="text"
                                     className="w-full p-2 bg-black/30 border border-gray-700 rounded"
                                     value={newLink.custom_id}
                                     onChange={(e) => setNewLink({ ...newLink, custom_id: e.target.value })}
-                                    placeholder="my-custom-id"
+                                    placeholder="自定义ID"
                                 />
                             </div>
                             <div className="mb-4">
-                                <label className="block mb-2">Description (optional)</label>
+                                <label className="block mb-2">描述（可选）</label>
                                 <input
                                     type="text"
                                     className="w-full p-2 bg-black/30 border border-gray-700 rounded"
                                     value={newLink.description}
                                     onChange={(e) => setNewLink({ ...newLink, description: e.target.value })}
-                                    placeholder="Description for this URL"
+                                    placeholder="该网址的描述"
                                 />
                             </div>
                             <button
                                 type="submit"
                                 className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                             >
-                                Create Short URL
+                                创建短链接
                             </button>
                         </form>
                     </div>
@@ -201,10 +201,10 @@ export default function SavedLinks() {
 
                 {editingLink && (
                     <div className="bg-white/10 p-6 rounded-lg shadow-md mb-6">
-                        <h2 className="text-xl font-bold mb-4">Edit Short URL</h2>
+                        <h2 className="text-xl font-bold mb-4">编辑短链接</h2>
                         <form onSubmit={handleEditSubmit}>
                             <div className="mb-4">
-                                <label className="block mb-2">Target URL*</label>
+                                <label className="block mb-2">目标网址*</label>
                                 <input
                                     type="url"
                                     required
@@ -214,22 +214,22 @@ export default function SavedLinks() {
                                 />
                             </div>
                             <div className="mb-4">
-                                <label className="block mb-2">Custom ID (alias)</label>
+                                <label className="block mb-2">自定义ID（别名）</label>
                                 <input
                                     type="text"
                                     className="w-full p-2 bg-black/30 border border-gray-700 rounded"
                                     value={editCustomId}
                                     onChange={(e) => setEditCustomId(e.target.value)}
-                                    placeholder="my-custom-id"
+                                    placeholder="自定义ID"
                                 />
                                 <p className="text-xs text-gray-400 mt-1">
-                                    Enter a new custom ID to move this URL to a different alias.
-                                    This will create a new short URL with the same target URL but a different path.
-                                    Leave blank to keep the current ID.
+                                    输入新的自定义ID可将此短链接移动到不同别名。
+                                    这将创建一个具有相同目标网址但不同路径的新短链接。
+                                    留空则保持当前ID。
                                 </p>
                             </div>
                             <div className="mb-4">
-                                <label className="block mb-2">Description</label>
+                                <label className="block mb-2">描述</label>
                                 <input
                                     type="text"
                                     className="w-full p-2 bg-black/30 border border-gray-700 rounded"
@@ -242,14 +242,14 @@ export default function SavedLinks() {
                                     type="submit"
                                     className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                                 >
-                                    Save Changes
+                                    保存更改
                                 </button>
                                 <button
                                     type="button"
                                     className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
                                     onClick={() => setEditingLink(null)}
                                 >
-                                    Cancel
+                                    取消
                                 </button>
                             </div>
                         </form>
@@ -259,7 +259,7 @@ export default function SavedLinks() {
                 <div className="bg-white/5 p-6 rounded-lg shadow-md">
                     {loading ? (
                         <div className="text-center py-8">
-                            <p className="text-lg">Loading short URLs...</p>
+                            <p className="text-lg">正在加载短链接...</p>
                         </div>
                     ) : links.length > 0 ? (
                         <div className="space-y-4">
@@ -275,14 +275,14 @@ export default function SavedLinks() {
                                             </h3>
                                             {link.custom_id && (
                                                 <span className="bg-purple-500/30 text-purple-300 text-xs px-2 py-1 rounded-full">
-                                                    Custom ID
+                                                    自定义ID
                                                 </span>
                                             )}
                                         </div>
 
                                         <div className="mt-3 flex flex-col gap-1">
                                             <div className="flex items-center">
-                                                <span className="text-sm font-medium text-gray-400 w-20">Short URL:</span>
+                                                <span className="text-sm font-medium text-gray-400 w-20">短链接：</span>
                                                 <a
                                                     href={link.short_url}
                                                     target="_blank"
@@ -294,7 +294,7 @@ export default function SavedLinks() {
                                             </div>
 
                                             <div className="flex items-center">
-                                                <span className="text-sm font-medium text-gray-400 w-20">Target:</span>
+                                                <span className="text-sm font-medium text-gray-400 w-20">目标：</span>
                                                 <a
                                                     href={link.target_url}
                                                     target="_blank"
@@ -308,18 +308,18 @@ export default function SavedLinks() {
 
                                         <div className="mt-2 flex flex-wrap gap-3 text-xs">
                                             <span className="bg-gray-700/50 px-2 py-1 rounded-md">
-                                                Created: {formatDate(link.created_at)}
+                                                创建时间：{formatDate(link.created_at)}
                                             </span>
                                             <span className="bg-gray-700/50 px-2 py-1 rounded-md">
-                                                Clicks: {link.use_count}
+                                                点击次数：{link.use_count}
                                             </span>
                                             {link.last_used && (
                                                 <span className="bg-gray-700/50 px-2 py-1 rounded-md">
-                                                    Last used: {formatDate(link.last_used)}
+                                                    最后使用：{formatDate(link.last_used)}
                                                 </span>
                                             )}
                                             <span className="bg-gray-700/50 px-2 py-1 rounded-md">
-                                                ID: {link.id}
+                                                ID：{link.id}
                                             </span>
                                         </div>
                                     </div>
@@ -331,7 +331,7 @@ export default function SavedLinks() {
                                             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                                             </svg>
-                                            Copy
+                                            复制
                                         </button>
                                         <button
                                             onClick={() => startEditing(link)}
@@ -340,7 +340,7 @@ export default function SavedLinks() {
                                             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                             </svg>
-                                            Edit
+                                            编辑
                                         </button>
                                         <button
                                             onClick={() => handleDelete(link.id)}
@@ -349,7 +349,7 @@ export default function SavedLinks() {
                                             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                             </svg>
-                                            Delete
+                                            删除
                                         </button>
                                     </div>
                                 </div>
@@ -357,12 +357,12 @@ export default function SavedLinks() {
                         </div>
                     ) : (
                         <div className="text-center py-8">
-                            <p className="text-lg mb-4">You don't have any short URLs yet.</p>
+                            <p className="text-lg mb-4">你还没有任何短链接。</p>
                             <button
                                 onClick={() => setShowNewLinkForm(true)}
                                 className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                             >
-                                Create Your First Short URL
+                                创建你的第一个短链接
                             </button>
                         </div>
                     )}
@@ -370,4 +370,4 @@ export default function SavedLinks() {
             </div>
         </main>
     );
-} 
+}
