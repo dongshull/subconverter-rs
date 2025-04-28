@@ -1,0 +1,207 @@
+# 配置文件模板 - 带注释版本
+# 本文件是pref.example.yml的详细注释版本，解释了每个配置项的作用和用法
+
+common:
+  # API模式开关，true启用API访问，false禁用
+  api_mode: false
+  # API访问令牌，用于验证API请求
+  api_access_token: password
+  # 默认订阅URL列表，可添加多个URL
+  default_url: []
+  # 是否启用插入功能
+  enable_insert: true
+  # 插入的URL列表
+  insert_url: []
+  # 是否将插入URL放在订阅URL前面
+  prepend_insert_url: true
+  # 排除包含这些关键词的节点备注
+  exclude_remarks: ["(到期|剩余流量|时间|官网|产品|平台)"]
+  # 包含特定关键词的节点备注
+  include_remarks: []
+  # 是否启用过滤脚本
+  enable_filter: false
+  # 过滤脚本内容
+  filter_script: ""
+  # 默认外部配置文件路径
+  default_external_config: "" # config/example_external_config.yml
+  # 基础路径
+  base_path: base
+  # 各客户端规则模板路径
+  clash_rule_base: base/all_base.tpl
+  surge_rule_base: base/all_base.tpl
+  surfboard_rule_base: base/all_base.tpl
+  mellow_rule_base: base/all_base.tpl
+  quan_rule_base: base/all_base.tpl
+  quanx_rule_base: base/all_base.tpl
+  loon_rule_base: base/all_base.tpl
+  sssub_rule_base: base/all_base.tpl
+  singbox_rule_base: base/all_base.tpl
+  # 代理配置方式：SYSTEM(系统代理)或NONE(无代理)
+  proxy_config: SYSTEM
+  # 规则集获取代理方式
+  proxy_ruleset: SYSTEM
+  # 订阅获取代理方式
+  proxy_subscription: NONE
+  # 是否在节点名称后追加代理类型
+  append_proxy_type: false
+  # 是否在请求时重新加载配置
+  reload_conf_on_request: false
+
+# 用户信息处理规则
+userinfo:
+  # 流量信息处理规则
+  stream_rule: 
+  - {match: "^剩余流量：(.*?)\\|总流量：(.*)$", replace: "total=$2&left=$1"}
+  - {match: "^剩余流量：(.*?) (.*)$", replace: "total=$1&left=$2"}
+  - {match: "^Bandwidth: (.*?)/(.*)$", replace: "used=$1&total=$2"}
+  - {match: "^.*剩余(.*?)(?:\\s*?)@(?:.*)$", replace: "total=$1"}
+  - {match: "^.*?流量:(.*?) 剩:(?:.*)$", replace: "total=$1"}
+  # 时间信息处理规则
+  time_rule:
+  - {match: "^过期时间：(\\d+)-(\\d+)-(\\d+) (\\d+):(\\d+):(\\d+)$", replace: "$1:$2:$3:$4:$5:$6"}
+  - {match: "^到期时间(:|：)(\\d+)-(\\d+)-(\\d+)$", replace: "$1:$2:$3:0:0:0"}
+  - {match: "^Smart Access expire: (\\d+)/(\\d+)/(\\d+)$", replace: "$1:$2:$3:0:0:0"}
+  - {match: "^.*?流量:(?:.*?) 剩:(.*?)天$", replace: "left=$1d"}
+
+# 节点偏好设置
+node_pref:
+  # 排序开关
+  sort_flag: false
+  # 排序脚本路径
+  sort_script: ""
+  # 是否过滤过时节点
+  filter_deprecated_nodes: false
+  # 是否在订阅中包含用户信息
+  append_sub_userinfo: true
+  # Clash是否使用新字段名
+  clash_use_new_field_name: true
+  # Clash代理列表样式
+  clash_proxies_style: flow
+  # Clash代理组样式
+  clash_proxy_groups_style: block
+  # Singbox是否添加Clash模式
+  singbox_add_clash_modes: true
+  # 节点重命名规则
+  rename_node:
+  - {import: snippets/rename_node.txt}
+
+# 托管配置设置
+managed_config:
+  # 是否写入托管配置
+  write_managed_config: true
+  # 托管配置前缀URL
+  managed_config_prefix: "http://127.0.0.1:25500"
+  # 配置更新间隔(秒)
+  config_update_interval: 86400
+  # 是否严格更新配置
+  config_update_strict: false
+  # Quantumult X设备ID
+  quanx_device_id: ""
+
+# Surge外部代理设置
+surge_external_proxy:
+  # SSR本地路径
+  surge_ssr_path: "" # /usr/bin/ssr-local
+  # 是否解析主机名
+  resolve_hostname: true
+
+# Emoji设置
+emojis:
+  # 是否添加Emoji
+  add_emoji: true
+  # 是否移除旧Emoji
+  remove_old_emoji: true
+  # Emoji规则
+  rules:
+  - {import: snippets/emoji.txt}
+
+# 规则集设置
+rulesets:
+  # 是否启用规则集
+  enabled: true
+  # 是否覆盖原始规则
+  overwrite_original_rules: false
+  # 是否在请求时更新规则集
+  update_ruleset_on_request: false
+  # 规则集列表
+  rulesets:
+  - {import: snippets/rulesets.txt}
+
+# 代理组设置
+proxy_groups:
+  # 自定义代理组
+  custom_proxy_group:
+  - {import: snippets/groups.txt}
+
+# 模板设置
+template:
+  # 模板路径
+  template_path: ""
+  # 全局变量
+  globals:
+  - {key: clash.http_port, value: 7890}
+  - {key: clash.socks_port, value: 7891}
+  - {key: clash.allow_lan, value: true}
+  - {key: clash.log_level, value: info}
+  - {key: clash.external_controller, value: '127.0.0.1:9090'}
+  - {key: singbox.allow_lan, value: true}
+  - {key: singbox.mixed_port, value: 2080}
+
+# URL别名设置
+aliases:
+  - {uri: /v, target: /version}
+  - {uri: /clash, target: "/sub?target=clash"}
+  - {uri: /clashr, target: "/sub?target=clashr"}
+  - {uri: /surge, target: "/sub?target=surge"}
+  - {uri: /quan, target: "/sub?target=quan"}
+  - {uri: /quanx, target: "/sub?target=quanx"}
+  - {uri: /mellow, target: "/sub?target=mellow"}
+  - {uri: /surfboard, target: "/sub?target=surfboard"}
+  - {uri: /loon, target: "/sub?target=loon"}
+  - {uri: /singbox, target: "/sub?target=singbox"}
+  - {uri: /ss, target: "/sub?target=ss"}
+  - {uri: /ssd, target: "/sub?target=ssd"}
+  - {uri: /sssub, target: "/sub?target=sssub"}
+  - {uri: /ssr, target: "/sub?target=ssr"}
+  - {uri: /v2ray, target: "/sub?target=v2ray"}
+  - {uri: /trojan, target: "/sub?target=trojan"}
+
+# 服务器设置
+server:
+  # 监听地址
+  listen: 0.0.0.0
+  # 监听端口
+  port: 25500
+  # 静态文件根目录
+  serve_file_root: ""
+
+# 高级设置
+advanced:
+  # 日志级别
+  log_level: info
+  # 是否打印调试信息
+  print_debug_info: false
+  # 最大挂起连接数
+  max_pending_connections: 10240
+  # 最大并发线程数
+  max_concurrent_threads: 2
+  # 最大允许规则集数量
+  max_allowed_rulesets: 0
+  # 最大允许规则数量
+  max_allowed_rules: 0
+  # 最大允许下载大小(字节)
+  max_allowed_download_size: 0
+  # 是否启用缓存
+  enable_cache: false
+  # 订阅缓存时间(秒)
+  cache_subscription: 60
+  # 配置缓存时间(秒)
+  cache_config: 300
+  # 规则集缓存时间(秒)
+  cache_ruleset: 21600
+  # 是否清理脚本上下文
+  script_clean_context: true
+  # 是否异步获取规则集
+  async_fetch_ruleset: false
+  # 是否跳过失败链接
+  skip_failed_links: true
