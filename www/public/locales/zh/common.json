@@ -1,0 +1,23 @@
+{
+  "title": "我的短链接",
+  "createButton": "创建新短链接",
+  "cancelButton": "取消",
+  "form": {
+    "urlLabel": "链接地址",
+    "urlPlaceholder": "https://example.com"
+  },
+  "buttons": {
+    "copy": "复制",
+    "edit": "编辑",
+    "delete": "删除"
+  },
+  "confirm": {
+    "delete": "确定要删除这个短链接吗？"
+  },
+  "emptyState": {
+    "message": "您还没有任何短链接"
+  },
+  "error": {
+    "loadFailed": "加载短链接失败"
+  }
+}

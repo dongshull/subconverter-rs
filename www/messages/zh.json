@@ -64,11 +64,21 @@
         "step4": "更新订阅以获取最新配置"
     },
     "LinksPage": {
+        "status": {
+            "noUrls": "未找到保存的链接。创建您的第一个短链接开始使用。",
+            "loadingUrls": "正在加载您保存的链接..."
+        },
+        "actions": {
+            "createFirstUrl": "创建您的第一个短链接",
+            "createShortURL": "创建短链接"
+        },
+        "createNewShortURL": "创建新短链接",
         "title": "订阅管理器",
         "backToHome": "返回首页",
         "loading": "正在加载您保存的链接...",
         "createNewButton": "创建新短链接",
         "cancel": "取消",
+        "cancelButton": "取消",
         "deleteConfirm": "您确定要删除这个短链接吗？",
         "createFormTitle": "创建新短链接",
         "targetUrl": "目标链接",
@@ -95,7 +105,47 @@
         "errorUpdateLink": "更新短链接失败",
         "noLinksFound": "未找到保存的链接。创建您的第一个短链接开始使用。",
         "copySuccess": "链接已复制到剪贴板！",
-        "linkUpdated": "链接更新成功！"
+        "linkUpdated": "链接更新成功！",
+        "noShortUrlsYet": "您还没有任何短链接",
+        "createFirstShortUrl": "创建您的第一个短链接",
+        "shortUrlLabel": "短链接:",
+        "targetLabel": "目标:",
+        "createdLabel": "创建时间:",
+        "clicksLabel": "点击次数:",
+        "lastUsedLabel": "最后使用:",
+        "idLabel": "ID:",
+        "customIdLabel": "自定义ID",
+        "form": {
+            "urlLabel": "目标链接",
+            "urlPlaceholder": "https://example.com",
+            "targetURL": "目标网址",
+            "customID": "自定义ID",
+            "optional": "可选",
+            "customIDPlaceholder": "我的自定义ID",
+            "description": "描述",
+            "descriptionPlaceholder": "此链接的描述"
+        },
+        "buttons": {
+            "copy": "复制",
+            "edit": "编辑",
+            "delete": "删除"
+        },
+        "confirm": {
+            "delete": "您确定要删除这个短链接吗？"
+        },
+        "emptyState": {
+            "message": "您还没有任何短链接。"
+        },
+        "error": {
+            "loadFailed": "加载短链接失败"
+        },
+        "fields": {
+            "shortUrl": "短链接",
+            "target": "目标链接",
+            "created": "创建时间",
+            "clicks": "点击次数",
+            "id": "ID"
+        }
     },
     "SettingsPage": {
         "title": "服务器配置",
@@ -336,10 +386,6 @@
         "urlWillBeSaved": "此URL将被保存为短链接。",
         "shortUrlMessage": "已创建短链接。",
         "conversionResultAriaLabel": "转换结果",
-        "downloadConfigButton": "下载配置",
-        "uploadResultLabel": "上传结果到Gist",
-        "uploadPathLabel": "上传Gist路径",
-        "uploadPathPlaceholder": "例如：profiles/my_config.yaml",
-        "uploadPathHelp": "在服务器上保存转换结果的路径（需要服务器启用）"
+        "downloadConfigButton": "下载配置"
     }
 }

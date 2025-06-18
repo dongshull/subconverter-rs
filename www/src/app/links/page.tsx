@@ -2,10 +2,12 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useTranslations } from 'next-intl';
 import { ShortUrlData, listShortUrls, deleteShortUrl, createShortUrl, updateShortUrl, moveShortUrl } from "@/lib/api-client";
 import { useRouter } from "next/navigation";
 
 export default function SavedLinks() {
+    const t = useTranslations('LinksPage');
     const [links, setLinks] = useState<ShortUrlData[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -35,7 +37,7 @@ export default function SavedLinks() {
     };
 
     const handleDelete = async (id: string) => {
-        if (!confirm("Are you sure you want to delete this short URL?")) {
+        if (!confirm(t('confirm.delete'))) {
             return;
         }
 
@@ -131,19 +133,19 @@ export default function SavedLinks() {
         <main className="flex min-h-screen flex-col items-center p-8">
             <div className="z-10 max-w-5xl w-full items-center font-mono text-sm">
                 <div className="flex justify-between items-center mb-8">
-                    <h1 className="text-3xl font-bold">My Short URLs</h1>
+                    <h1 className="text-3xl font-bold">{t('title')}</h1>
                     <div className="flex gap-2">
                         <button
                             onClick={() => setShowNewLinkForm(!showNewLinkForm)}
                             className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                         >
-                            {showNewLinkForm ? "Cancel" : "Create New Short URL"}
+                            {showNewLinkForm ? t('cancelButton') : t('createButton')}
                         </button>
                         <Link
                             href="/"
                             className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
                         >
-                            Back to Home
+                            {t('backToHome')}
                         </Link>
                     </div>
                 </div>
@@ -156,10 +158,10 @@ export default function SavedLinks() {
 
                 {showNewLinkForm && (
                     <div className="bg-white/10 p-6 rounded-lg shadow-md mb-6">
-                        <h2 className="text-xl font-bold mb-4">Create New Short URL</h2>
+                        <h2 className="text-xl font-bold mb-4">{t('createNewShortURL')}</h2>
                         <form onSubmit={handleCreateSubmit}>
                             <div className="mb-4">
-                                <label className="block mb-2">Target URL*</label>
+                                <label className="block mb-2">{t('form.targetURL')}*</label>
                                 <input
                                     type="url"
                                     required
@@ -170,30 +172,30 @@ export default function SavedLinks() {
                                 />
                             </div>
                             <div className="mb-4">
-                                <label className="block mb-2">Custom ID (optional)</label>
+                                <label className="block mb-2">{t('form.customID')} ({t('form.optional')})</label>
                                 <input
                                     type="text"
                                     className="w-full p-2 bg-black/30 border border-gray-700 rounded"
                                     value={newLink.custom_id}
                                     onChange={(e) => setNewLink({ ...newLink, custom_id: e.target.value })}
-                                    placeholder="my-custom-id"
+                                    placeholder={t('form.customIDPlaceholder')}
                                 />
                             </div>
                             <div className="mb-4">
-                                <label className="block mb-2">Description (optional)</label>
+                                <label className="block mb-2">{t('form.description')} ({t('form.optional')})</label>
                                 <input
                                     type="text"
                                     className="w-full p-2 bg-black/30 border border-gray-700 rounded"
                                     value={newLink.description}
                                     onChange={(e) => setNewLink({ ...newLink, description: e.target.value })}
-                                    placeholder="Description for this URL"
+                                    placeholder={t('form.descriptionPlaceholder')}
                                 />
                             </div>
                             <button
                                 type="submit"
                                 className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                             >
-                                Create Short URL
+                                {t('actions.createShortURL')}
                             </button>
                         </form>
                     </div>
@@ -201,10 +203,10 @@ export default function SavedLinks() {
 
                 {editingLink && (
                     <div className="bg-white/10 p-6 rounded-lg shadow-md mb-6">
-                        <h2 className="text-xl font-bold mb-4">Edit Short URL</h2>
+                        <h2 className="text-xl font-bold mb-4">{t('editShortURL')}</h2>
                         <form onSubmit={handleEditSubmit}>
                             <div className="mb-4">
-                                <label className="block mb-2">Target URL*</label>
+                                <label className="block mb-2">{t('form.targetURL')}*</label>
                                 <input
                                     type="url"
                                     required
@@ -214,27 +216,26 @@ export default function SavedLinks() {
                                 />
                             </div>
                             <div className="mb-4">
-                                <label className="block mb-2">Custom ID (alias)</label>
+                                <label className="block mb-2">{t('form.customID')} ({t('form.alias')})</label>
                                 <input
                                     type="text"
                                     className="w-full p-2 bg-black/30 border border-gray-700 rounded"
                                     value={editCustomId}
                                     onChange={(e) => setEditCustomId(e.target.value)}
-                                    placeholder="my-custom-id"
+                                    placeholder={t('form.customIDPlaceholder')}
                                 />
                                 <p className="text-xs text-gray-400 mt-1">
-                                    Enter a new custom ID to move this URL to a different alias.
-                                    This will create a new short URL with the same target URL but a different path.
-                                    Leave blank to keep the current ID.
+                                    {t('form.customIDHelp')}
                                 </p>
                             </div>
                             <div className="mb-4">
-                                <label className="block mb-2">Description</label>
+                                <label className="block mb-2">{t('form.description')}</label>
                                 <input
                                     type="text"
                                     className="w-full p-2 bg-black/30 border border-gray-700 rounded"
                                     value={editingLink.description || ""}
                                     onChange={(e) => setEditingLink({ ...editingLink, description: e.target.value || undefined })}
+                                    placeholder={t('form.descriptionPlaceholder')}
                                 />
                             </div>
                             <div className="flex gap-2">
@@ -242,14 +243,14 @@ export default function SavedLinks() {
                                     type="submit"
                                     className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                                 >
-                                    Save Changes
+                                    {t('actions.saveChanges')}
                                 </button>
                                 <button
                                     type="button"
                                     className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
                                     onClick={() => setEditingLink(null)}
                                 >
-                                    Cancel
+                                    {t('actions.cancel')}
                                 </button>
                             </div>
                         </form>
@@ -259,7 +260,7 @@ export default function SavedLinks() {
                 <div className="bg-white/5 p-6 rounded-lg shadow-md">
                     {loading ? (
                         <div className="text-center py-8">
-                            <p className="text-lg">Loading short URLs...</p>
+                            <p className="text-lg">{t('status.loadingUrls')}</p>
                         </div>
                     ) : links.length > 0 ? (
                         <div className="space-y-4">
@@ -282,7 +283,7 @@ export default function SavedLinks() {
 
                                         <div className="mt-3 flex flex-col gap-1">
                                             <div className="flex items-center">
-                                                <span className="text-sm font-medium text-gray-400 w-20">Short URL:</span>
+                                                <span className="text-sm font-medium text-gray-400 w-20">{t('fields.shortUrl')}:</span>
                                                 <a
                                                     href={link.short_url}
                                                     target="_blank"
@@ -294,7 +295,7 @@ export default function SavedLinks() {
                                             </div>
 
                                             <div className="flex items-center">
-                                                <span className="text-sm font-medium text-gray-400 w-20">Target:</span>
+                                                <span className="text-sm font-medium text-gray-400 w-20">{t('fields.target')}:</span>
                                                 <a
                                                     href={link.target_url}
                                                     target="_blank"
@@ -331,7 +332,7 @@ export default function SavedLinks() {
                                             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                                             </svg>
-                                            Copy
+                                            {t('copyLink')}
                                         </button>
                                         <button
                                             onClick={() => startEditing(link)}
@@ -340,7 +341,7 @@ export default function SavedLinks() {
                                             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                             </svg>
-                                            Edit
+                                            {t('editButton')}
                                         </button>
                                         <button
                                             onClick={() => handleDelete(link.id)}
@@ -349,7 +350,7 @@ export default function SavedLinks() {
                                             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                             </svg>
-                                            Delete
+                                            {t('deleteButton')}
                                         </button>
                                     </div>
                                 </div>
@@ -357,12 +358,12 @@ export default function SavedLinks() {
                         </div>
                     ) : (
                         <div className="text-center py-8">
-                            <p className="text-lg mb-4">You don't have any short URLs yet.</p>
+                            <p className="text-lg mb-4">{t('status.noUrls')}</p>
                             <button
                                 onClick={() => setShowNewLinkForm(true)}
                                 className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                             >
-                                Create Your First Short URL
+                                {t('actions.createFirstUrl')}
                             </button>
                         </div>
                     )}
